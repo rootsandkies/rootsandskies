@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Roots & Skies — Minimal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Minimal theme: lots of whitespace, neutral tones, clear hierarchy */
+    :root{
+      --bg: #ffffff;
+      --text:#0b1220;
+      --muted:#6b7280;
+      --accent:#111827; /* small accent for CTAs */
+      --radius:10px;
+      --max:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto;
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding:32px 20px;
+      display:flex;
+      justify-content:center;
+    }
+    .site{width:min(100%,var(--max));}
+
+    /* Header */
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px}
+    .brand{font-weight:600;letter-spacing:0.04em}
+    .nav{display:flex;gap:14px;align-items:center}
+    .nav a{color:var(--muted);text-decoration:none;font-size:14px}
+
+    /* Hero */
+    .hero{display:flex;align-items:center;justify-content:space-between;gap:32px;margin-bottom:40px}
+    .hero-left{max-width:56%;}
+    h1{font-size:40px;margin:0 0 14px 0;font-weight:600}
+    p.lead{margin:0;color:var(--muted)}
+    .cta{display:inline-block;margin-top:18px;padding:10px 16px;border-radius:8px;border:1px solid var(--accent);background:transparent;color:var(--accent);font-weight:600;text-decoration:none}
+
+    /* Products */
+    #products{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
+    .card{background:#fff;border:1px solid #e6e9ee;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
+    .card img{width:100%;height:220px;object-fit:cover;border-radius:8px}
+    .card h3{margin:0;font-size:16px}
+    .price{font-weight:600}
+    .muted{color:var(--muted);font-size:13px}
+    .add{margin-top:auto;padding:10px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-weight:600;cursor:pointer}
+
+    /* Cart button */
+    .cart-btn{border:1px solid #e6e9ee;padding:8px 10px;border-radius:8px;background:#fff;cursor:pointer}
+    .cart-count{background:#111827;color:#fff;padding:2px 8px;border-radius:999px;margin-left:8px;font-size:13px}
+
+    /* Footer */
+    footer{margin-top:48px;color:var(--muted);font-size:14px;padding:28px 0;border-top:1px solid #f3f4f6}
+
+    /* Responsive */
+    @media (max-width:920px){
+      .hero{flex-direction:column;align-items:flex-start}
+      .hero-left{max-width:100%}
+      #products{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:520px){
+      body{padding:20px}
+      #products{grid-template-columns:1fr}
+      h1{font-size:28px}
+      .card img{height:180px}
+    }
+
+    /* Simple drawer */
+    .drawer{position:fixed;right:20px;bottom:20px;background:#fff;border-radius:12px;padding:16px;border:1px solid #e6e9ee;box-shadow:0 10px 30px rgba(3,7,18,0.06);width:320px;max-width:calc(100% - 40px);display:none;z-index:120}
+    .drawer.open{display:block}
+    .drawer h4{margin:0 0 10px 0}
+    .drawer .item{display:flex;justify-content:space-between;margin-bottom:8px}
+    .drawer .checkout{display:block;margin-top:12px;padding:10px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-weight:600;cursor:pointer;width:100%}
+
+  </style>
+</head>
+<body>
+  <div class="site">
+    <header>
+      <div class="brand">Roots & Skies</div>
+      <nav class="nav">
+        <a href="#collections">Collections</a>
+        <a href="#products">Shop</a>
+        <button class="cart-btn" id="cartBtn" aria-label="Open cart">Cart <span id="cartCount" class="cart-count">0</span></button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-left">
+          <h1>Clean streetwear. Zero noise.</h1>
+          <p class="lead">Minimal silhouettes, premium fabrics. Small drops — high thought. Free shipping India-wide on orders over ₹2999.</p>
+          <a class="cta" href="#products">Shop</a>
+        </div>
+        <div class="hero-media">
+          <img src="https://images.pexels.com/photos/7691380/pexels-photo-7691380.jpeg?auto=compress&cs=tinysrgb&w=800" alt="model" style="width:320px;height:220px;object-fit:cover;border-radius:10px;">
+        </div>
+      </section>
+
+      <section id="shop">
+        <h2 id="collections">Featured</h2>
+        <div id="products" aria-live="polite">
+          <!-- products injected here -->
+        </div>
+      </section>
+
+      <section id="contact" style="margin-top:34px">
+        <h3>Contact</h3>
+        <form id="contactForm" style="max-width:520px;display:flex;flex-direction:column;gap:8px;margin-top:8px">
+          <input name="name" placeholder="Your name" required style="padding:10px;border-radius:8px;border:1px solid #e6e9ee">
+          <input name="email" type="email" placeholder="Email" required style="padding:10px;border-radius:8px;border:1px solid #e6e9ee">
+          <textarea name="message" placeholder="Message" rows="4" style="padding:10px;border-radius:8px;border:1px solid #e6e9ee"></textarea>
+          <button type="submit" style="padding:10px;border-radius:8px;border:1px solid var(--accent);background:transparent;color:var(--accent);font-weight:600;cursor:pointer">Send</button>
+          <div id="contactStatus" style="color:var(--muted);font-size:13px"></div>
+        </form>
+      </section>
+
+      <footer>
+        © <span id="year"></span> Roots & Skies — Minimal streetwear
+      </footer>
+    </main>
+
+    <!-- Cart Drawer -->
+    <div id="cartDrawer" class="drawer" role="dialog" aria-hidden="true">
+      <h4>Your cart</h4>
+      <div id="cartItems"></div>
+      <div style="display:flex;justify-content:space-between;margin-top:10px;font-weight:600"><span>Total</span><span id="cartTotal">₹0</span></div>
+      <button id="checkout" class="checkout">Checkout</button>
+    </div>
+
+  </div>
+
+  <script>
+    // Minimal front-end logic: fetch products, simple cart, contact POST
+    const API = (location.hostname === 'localhost') ? 'http://localhost:4000' : '';
+    const productGrid = document.getElementById('products');
+    const cartBtn = document.getElementById('cartBtn');
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartCount = document.getElementById('cartCount');
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartTotalEl = document.getElementById('cartTotal');
+    const checkoutBtn = document.getElementById('checkout');
+    const contactForm = document.getElementById('contactForm');
+    const contactStatus = document.getElementById('contactStatus');
+
+    let products = [];
+    let cart = JSON.parse(localStorage.getItem('cart_v1') || '[]');
+
+    function setCartUI(){
+      const count = cart.reduce((s,i)=>s+i.qty,0);
+      cartCount.textContent = count;
+      cartItemsEl.innerHTML = '';
+      let total = 0;
+      cart.forEach(it=>{
+        const row = document.createElement('div');
+        row.className = 'item';
+        row.innerHTML = `<div style="font-size:14px">${it.name} <div class="muted" style="font-size:12px">₹${it.price} × ${it.qty}</div></div><div>₹${it.price*it.qty}</div>`;
+        cartItemsEl.appendChild(row);
+        total += it.price*it.qty;
+      });
+      cartTotalEl.textContent = '₹' + total;
+      localStorage.setItem('cart_v1', JSON.stringify(cart));
+    }
+
+    function addToCart(id){
+      const p = products.find(x=>x.id===id);
+      if(!p) return;
+      const existing = cart.find(x=>x.id===id);
+      if(existing) existing.qty++;
+      else cart.push({id:p.id,name:p.name,price:p.price,qty:1});
+      setCartUI();
+      cartDrawer.classList.add('open');
+      cartDrawer.setAttribute('aria-hidden','false');
+    }
+
+    cartBtn.addEventListener('click', ()=>{
+      const open = cartDrawer.classList.toggle('open');
+      cartDrawer.setAttribute('aria-hidden', String(!open));
+    });
+
+    checkoutBtn.addEventListener('click', async ()=>{
+      if(cart.length===0){alert('Cart is empty');return}
+      try{
+        const res = await fetch((API?API:'/') + 'api/checkout', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({items:cart.map(c=>({id:c.id,qty:c.qty}))})
+        });
+        const data = await res.json();
+        if(!res.ok) throw new Error(data.error||'Checkout failed');
+        alert('Order placed: ' + data.orderId + '\nTotal: ₹' + data.total);
+        cart = []; setCartUI(); cartDrawer.classList.remove('open');
+      }catch(err){
+        alert('Checkout error. Make sure backend is running.');
+        console.error(err);
+      }
+    });
+
+    // load products
+    async function loadProducts(){
+      try{
+        const res = await fetch((API?API:'/') + 'api/products');
+        products = await res.json();
+        renderProducts();
+      }catch(err){
+        productGrid.innerHTML = '<div style="color:#ef4444">Failed to load products.</div>';
+        console.error(err);
+      }
+    }
+
+    function renderProducts(){
+      productGrid.innerHTML = '';
+      products.forEach(p=>{
+        const el = document.createElement('div');
+        el.className = 'card';
+        el.innerHTML = `
+          <img src="${p.image}" alt="${p.name}" loading="lazy">
+          <h3>${p.name}</h3>
+          <div class="muted">${p.desc || ''}</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+            <div class="price">₹${p.price}</div>
+            <button class="add" data-id="${p.id}">Add</button>
+          </div>
+        `;
+        productGrid.appendChild(el);
+      });
+
+      // bind add buttons
+      document.querySelectorAll('.add').forEach(b=>b.addEventListener('click',()=>addToCart(b.dataset.id)));
+    }
+
+    contactForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      contactStatus.textContent = 'Sending...';
+      const form = new FormData(contactForm);
+      const payload = {name:form.get('name'),email:form.get('email'),message:form.get('message')};
+      try{
+        const res = await fetch((API?API:'/') + 'api/contact', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+        const d = await res.json();
+        if(!res.ok) throw new Error(d.error||'error');
+        contactStatus.textContent = 'Message sent — thanks.';
+        contactForm.reset();
+      }catch(err){
+        contactStatus.textContent = 'Failed to send. Make sure backend is running.';
+      }
+      setTimeout(()=>contactStatus.textContent = '',3500);
+    });
+
+    // init
+    document.getElementById('year').textContent = new Date().getFullYear();
+    setCartUI();
+    loadProducts();
+  </script>
+</body>
+</html>
